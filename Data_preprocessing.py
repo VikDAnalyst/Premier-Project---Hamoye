@@ -357,3 +357,30 @@ df["other_lvscost"] = df["cost5lvs"] # Other cost on livestocks
 # Drops columns on cost1crop,...,cost5lvs
 df.drop(columns=["cost1crop","cost2crop","cost3crop","cost4crop","cost5crop","cost1lvs",
                  "cost2lvs","cost3lvs","cost4lvs","cost5lvs"], inplace=True)
+
+
+# in relation to data preprocessing IV
+
+# Created a dictionary to map old column names to new column names for renaming
+column_mapping = {
+    "taxincome": "income_tax",
+    "taxprop": "property_tax",
+    "taxsales": "sales_tax",
+    "taxother": "other_tax",
+    "incfarm": "net_income_farm",
+    "incnfarm": "net_income_non_farm",
+    "inc1r": "relatives_interest",
+    "inc2r": "cooperatives_interest",
+    "inc3r": "bank_interest",
+    "inc4r": "loan_s_interest",
+    "inc5r": "other_interest",
+    "incfarm_n": "Average_income"
+}
+
+# Rename the selected columns
+df.rename(columns=column_mapping, inplace=True)
+
+
+
+
+
