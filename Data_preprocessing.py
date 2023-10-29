@@ -236,3 +236,124 @@ df['total_hired_kind_payment']=df[['inkindhrm','inkindhrf','inkindhrc']].sum(axi
 
 #drop the columns
 df.drop(columns=['inkindhrm','inkindhrf','inkindhrc'],inplace=True)
+
+# Section 4b resolved by Victor Ademola 
+# Create column for total number of livestocks owned
+df["total_livestocks_owned"]=df[["lvs1num","lvs2num","lvs3num","lvs4num","lvs5num","lvs6num",
+    "lvs7num","lvs8num","lvs9num","lvs10num","lvs11num","lvs12num"]].sum(axis=1)
+
+#drop the number of each type of livestocks owned
+df.drop(columns=["lvs1num","lvs2num","lvs3num","lvs4num","lvs5num","lvs6num",
+    "lvs7num","lvs8num","lvs9num","lvs10num","lvs11num","lvs12num"], inplace=True)
+
+# Create column for total nummber of livestocks born over the last 12 months
+df["total_livestocks_born"]=df[["lvs1born","lvs2born","lvs3born","lvs4born","lvs5born","lvs6born",
+    "lvs7born","lvs8born","lvs9born","lvs10born","lvs11born","lvs12born"]].sum(axis=1)
+
+# drop the number of each type of livestocks born
+df.drop(columns=["lvs1born","lvs2born","lvs3born","lvs4born","lvs5born","lvs6born",
+    "lvs7born","lvs8born","lvs9born","lvs10born","lvs11born","lvs12born"], inplace=True)
+
+# Create columns for the total number of livestock lost in the past 12 years
+df["total_livestocks_lost"]=df[["lvs1lost","lvs2lost","lvs3lost","lvs4lost","lvs5lost","lvs6lost",
+    "lvs7lost","lvs8lost","lvs9lost","lvs10lost","lvs11lost","lvs12lost"]].sum(axis=1)
+
+# Drop Columns for each type of livestock lost 
+df.drop(columns=["lvs1lost","lvs2lost","lvs3lost","lvs4lost","lvs5lost","lvs6lost",
+    "lvs7lost","lvs8lost","lvs9lost","lvs10lost","lvs11lost","lvs12lost"], inplace=True)
+
+# Create columns for the total number of livestock purchased in the past 12 years
+df["total_livestocks_purchased"]=df[["lvs1purch","lvs2purch","lvs3purch","lvs4purch","lvs5purch","lvs6purch",
+    "lvs7purch","lvs8purch","lvs9purch","lvs10purch","lvs11purch","lvs12purch"]].sum(axis=1)
+
+# Drop Columns for each type of livestock purchased
+df.drop(columns=["lvs1purch","lvs2purch","lvs3purch","lvs4purch","lvs5purch","lvs6purch",
+    "lvs7purch","lvs8purch","lvs9purch","lvs10purch","lvs11purch","lvs12purch"], inplace=True)
+
+# Create columns for the average purchase price per animal
+df["livestocks_avg_purchase_price"] = df[["lvs1pprice","lvs2pprice","lvs3pprice","lvs4pprice","lvs5pprice","lvs6pprice",
+    "lvs7pprice","lvs8pprice","lvs9pprice","lvs10pprice","lvs11pprice","lvs12pprice"]].mean(axis=1)
+
+#Drop columns for purchase price per animals 
+df.drop(columns=["lvs1pprice","lvs2pprice","lvs3pprice","lvs4pprice","lvs5pprice","lvs6pprice",
+    "lvs7pprice","lvs8pprice","lvs9pprice","lvs10pprice","lvs11pprice","lvs12pprice"], inplace=True)
+
+# Create columns for the average number of months than animals graze on Communalland 
+df["months_grazed_communal"]=df[["lvs1graze1","lvs2graze1","lvs3graze1","lvs4graze1","lvs5graze1","lvs6graze1",
+    "lvs7graze1","lvs8graze1","lvs9graze1","lvs10graze1","lvs11graze1","lvs12graze1"]].mean(axis=1)
+
+# Drop columns with number of months each type of animals graze communal land
+df.drop(columns=["lvs1graze1","lvs2graze1","lvs3graze1","lvs4graze1","lvs5graze1","lvs6graze1",
+    "lvs7graze1","lvs8graze1","lvs9graze1","lvs10graze1","lvs11graze1","lvs12graze1"], inplace=True)
+
+# Create columns for the average number of months than animals graze on 'Own land' 
+df["months_grazed_own"]=df[["lvs1graze2","lvs2graze2","lvs3graze2","lvs4graze2","lvs5graze2","lvs6graze2",
+    "lvs7graze2","lvs8graze2","lvs9graze2","lvs10graze2","lvs11graze2","lvs12graze2"]].mean(axis=1)
+
+# Drop columns with number of months each type of animals graze Own land
+df.drop(columns=["lvs1graze2","lvs2graze2","lvs3graze2","lvs4graze2","lvs5graze2","lvs6graze2",
+    "lvs7graze2","lvs8graze2","lvs9graze2","lvs10graze2","lvs11graze2","lvs12graze2"], inplace=True)
+
+# Create columns for the average number of months than animals graze on 'Open land' 
+df["month_grazed_openland"]=df[["lvs1graze3","lvs2graze3","lvs3graze3","lvs4graze3","lvs5graze3","lvs6graze3",
+    "lvs7graze3","lvs8graze3","lvs9graze3","lvs10graze3","lvs11graze3","lvs12graze3"]].mean(axis=1)
+
+# Drop columns with number of months each type of animals graze open land
+df.drop(columns=["lvs1graze3","lvs2graze3","lvs3graze3","lvs4graze3","lvs5graze3","lvs6graze3",
+    "lvs7graze3","lvs8graze3","lvs9graze3","lvs10graze3","lvs11graze3","lvs12graze3"], inplace=True)
+
+# Create columns for the total number of livestock sold in the past 12 years
+df["total_livestocks_sold"]=df[["lvs1sold","lvs2sold","lvs3sold","lvs4sold","lvs5sold","lvs6sold",
+    "lvs7sold","lvs8sold","lvs9sold","lvs10sold","lvs11sold","lvs12sold"]].sum(axis=1)
+
+# Drop Columns for each type of livestock sold
+df.drop(columns=["lvs1sold","lvs2sold","lvs3sold","lvs4sold","lvs5sold","lvs6sold",
+    "lvs7sold","lvs8sold","lvs9sold","lvs10sold","lvs11sold","lvs12sold"], inplace=True)
+
+# Create columns for the average sales price per animal
+df["livestocks_avg_sales_price"] = df[["lvs1sprice","lvs2sprice","lvs3sprice","lvs4sprice","lvs5sprice","lvs6sprice",
+    "lvs7sprice","lvs8sprice","lvs9sprice","lvs10sprice","lvs11sprice","lvs12sprice"]].mean(axis=1)
+
+# Drop columns used for creating average sales price per animal
+df.drop(columns=["lvs1sprice","lvs2sprice","lvs3sprice","lvs4sprice","lvs5sprice","lvs6sprice",
+    "lvs7sprice","lvs8sprice","lvs9sprice","lvs10sprice","lvs11sprice","lvs12sprice"], inplace=True)
+
+# Create columns for the average Quanity of livestock product used per year
+df["avg_livestocks_product_used"] = df[["lvsp1use","lvsp2use","lvsp3use","lvsp4use","lvsp5use","lvsp6use",
+    "lvsp7use","lvsp8use","lvsp9use"]].mean(axis=1)
+
+# Drop columns used for creating average Quantity of liverstocks product used per year
+df.drop(columns=["lvsp1use","lvsp2use","lvsp3use","lvsp4use","lvsp5use","lvsp6use",
+    "lvsp7use","lvsp8use","lvsp9use"], inplace=True)
+
+# Create columns for the average Quanity of livestock product used per year
+df["avg_livestocks_product_sold"] = df[["lvsp1sell","lvsp2sell","lvsp3sell","lvsp4sell","lvsp5sell","lvsp6sell",
+    "lvsp7sell","lvsp8sell","lvsp9sell"]].mean(axis=1)
+
+# Drop columns used for creating average Quantity of liverstocks product sold per year
+df.drop(columns=["lvsp1sell","lvsp2sell","lvsp3sell","lvsp4sell","lvsp5sell","lvsp6sell",
+    "lvsp7sell","lvsp8sell","lvsp9sell"], inplace=True)
+
+# Create columns for the Average Price of Livestock product sold per unit 
+df["avg_product_price"] = df[["lvsp1price","lvsp2price","lvsp3price","lvsp4price","lvsp5price","lvsp6price",
+    "lvsp7price","lvsp8price","lvsp9price"]].mean(axis=1)
+
+# Drop columns used for creating average Price of Livestock product sold per unit 
+df.drop(columns=["lvsp1price","lvsp2price","lvsp3price","lvsp4price","lvsp5price","lvsp6price",
+    "lvsp7price","lvsp8price","lvsp9price"], inplace=True)
+
+#Rename Columns 
+df["transport_cropcost"] = df["cost1crop"] # cost of transportion of food and tree crops harvested
+df["pm_cropcost"] = df["cost2crop"] # Cost of Packing/marketing of food and tree crops harvested
+df["storage_cropcost"] = df["cost3crop"] # cost of storage of food and tree crops harvested
+df["postharvest_croploss"] = df["cost4crop"] # Post harvest loss on food and tree crops harvested
+df["other_cropcost"] = df["cost5crop"] # Other cost on food and tree crops harvested
+df["transport_lvscost"]=df['cost1lvs'] # cost of transportion of livestocks
+df["pm_lvscost"] = df["cost2lvs"]  #cost of Packing/marketing on livestocks
+df["storage_lvscost"] = df["cost3lvs"] # cost of storage on livestock
+df["postharvest_lvsloss"] = df["cost4lvs"] # Post harvest loss on livestock
+df["other_lvscost"] = df["cost5lvs"] # Other cost on livestocks
+
+# Drops columns on cost1crop,...,cost5lvs
+df.drop(columns=["cost1crop","cost2crop","cost3crop","cost4crop","cost5crop","cost1lvs",
+                 "cost2lvs","cost3lvs","cost4lvs","cost5lvs"], inplace=True)
