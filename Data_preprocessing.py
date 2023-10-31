@@ -448,22 +448,30 @@ df.drop(columns=['longtermrainfallshifts1','longtermrainfallshifts2','longtermra
 df['adaptation_temperature_change']=(df['adaptation_temperature_change'].
                              fillna(df['adjtempshifts1']).
                              fillna( df['adjtempshifts2']).
-                             fillna( df['adjtempshifts3'])
+                             fillna( df['adjtempshifts3']).
+                            fillna(df['adjtempshifts1_1']).
+                            fillna(df['adjtempshifts2_1']).
+                            fillna(df['adjtempshifts3_1'])
                             )
-
 #drop the columns
-df.drop(columns=['adjtempshifts1','adjtempshifts2','adjtempshifts3'],inplace=True)
+df.drop(columns=['adjtempshifts1','adjtempshifts2','adjtempshifts3',
+                'adjtempshifts1_1','adjtempshifts2_1','adjtempshifts3_1'],inplace=True)
+
 
 #do the same for adjrainfallshifts1-3
 df['adaptation_precipitation_change']=(df['adaptation_precipitation_change'].
                              fillna(df['adjrainfallshifts1']).
                              fillna( df['adjrainfallshifts2']).
-                             fillna( df['adjrainfallshifts3'])
-                            )
+                             fillna( df['adjrainfallshifts3']).
+                            fillna( df['adjrainfallshifts1_1']).
+                            fillna( df['adjrainfallshifts2_1']).
+                            fillna(df['adjrainfallshifts3_1']))
 
 #drop the columns
-df.drop(columns=['adjrainfallshifts1','adjrainfallshifts2','adjrainfallshifts3'],inplace=True)
-
+df.drop(columns=['adjrainfallshifts1','adjrainfallshifts2',
+                 'adjrainfallshifts3','adjrainfallshifts1_1','adjrainfallshifts2_1',
+                'adjrainfallshifts3_1'],inplace=True)
+                                       
 
 #Issue 1 Resolved
 
@@ -553,6 +561,3 @@ df.drop(df.columns[df.columns.str.contains('married')], axis = 1, inplace = True
 
 #rename primary occupation and secondary occupation
 df.rename({'hhhdocc1' : 'primary_occu', 'hhhdocc2' : 'sec_occu'}, axis = 1,inplace=True)
-
-
-
