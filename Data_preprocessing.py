@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 import pandas as pd
 import numpy as np
@@ -13,9 +8,6 @@ pd.set_option('display.max_columns',40)
 df=pd.read_csv('data.csv')
 #dropping the unnamed column
 df.drop('Unnamed: 0',axis=1,inplace=True)
-
-
-# In[2]:
 
 
 #issues to resolve (Issue 3)
@@ -473,33 +465,19 @@ df['adaptation_precipitation_change']=(df['adaptation_precipitation_change'].
 df.drop(columns=['adjrainfallshifts1','adjrainfallshifts2','adjrainfallshifts3'],inplace=True)
 
 
-# In[ ]:
+#Issue 1 Resolved
 
-
-
-
-
-# In[3]:
-
-
-#sum the eduation of the members of each household to determine the level education in each.
-df['edu_level'] = df[df.columns[df.columns.str.contains('educ')]].sum(axis = 1)
-
-
-# In[4]:
+#Find the mean eduation level of the members of each household to determine the level education in each.
+df['edu_level'] = df[df.columns[df.columns.str.contains('educ')]].mean(axis = 1)
 
 
 df['edu_level'].head(5)
 
 
-# In[5]:
-
 
 #drop educ1 - educ38
 df.drop(df.columns[df.columns.str.contains('educ')], axis = 1, inplace = True)
 
-
-# In[6]:
 
 
 #aggregate the ages of each household to determine the strength and level of experience
@@ -518,13 +496,7 @@ df.drop(['age1','age2', 'age3', 'age4', 'age5', 'age6', 'age7', 'age8', 'age9', 
                    'age29', 'age30', 'age31', 'age32', 'age33', 'age34', 'age35', 'age36', 'age37', 'age38'], axis = 1, inplace = True)
 
 
-# In[ ]:
 
-
-
-
-
-# In[7]:
 
 
 #to determine the number of female and male in each household
@@ -539,8 +511,6 @@ df['nfemale'] = df[df.columns[df.columns.str.contains('gender')]].apply(lambda x
 df.drop(df.columns[df.columns.str.contains('gender')], axis = 1, inplace = True)
 
 
-# In[8]:
-
 
 #frequency of members involve in non farmwork
 df['mem_nfarmwrk'] = df[df.columns[df.columns.str.contains('nfarmwork')]].apply(lambda x : (x == 1).sum(), axis = 1)
@@ -550,8 +520,6 @@ df['mem_nfarmwrk'] = df[df.columns[df.columns.str.contains('nfarmwork')]].apply(
 df.drop(df.columns[df.columns.str.contains('nfarmwork')], axis = 1, inplace = True)
 
 
-# In[9]:
-
 
 #frequency of member involve in farmwork
 df['mem_farmwrk'] = df[df.columns[df.columns.str.contains('farmwork')]].apply(lambda x : (x == 1).sum(), axis = 1)
@@ -559,8 +527,6 @@ df['mem_farmwrk'] = df[df.columns[df.columns.str.contains('farmwork')]].apply(la
 #drop farmwork1 - 38
 df.drop(df.columns[df.columns.str.contains('farmwork')], axis = 1, inplace = True)
 
-
-# In[10]:
 
 
 #married
@@ -582,40 +548,11 @@ df['n_teengers'] = df[df.columns[df.columns.str.contains('married')]].apply(lamb
 df.drop(df.columns[df.columns.str.contains('married')], axis = 1, inplace = True)
 
 
-# In[ ]:
 
-
-
-
-
-# In[11]:
 
 
 #rename primary occupation and secondary occupation
-df = df.rename({'hhhdocc1' : 'primary_occu', 'hhhdocc2' : 'sec_occu'}, axis = 1)
-
-
-# In[12]:
-
-
-df[['hhcode', 'hhsize', 'hhtribe', 'hhrelig','hhelectric', "n_maried", 'n_divorced', 'n_teengers','n_singles', 'edu_level', 'ave_age', 'max_age', 'nmale', 'nfemale', 'occ1days','primary_occu', 'sec_occu',
-   'occ1wks', 'occ2days', 'occ1wks', 'sickdays', "mem_farmwrk", 'mem_nfarmwrk']].head(5)
-
-
-# In[13]:
-
-
-df.head(5)
-
-
-# In[14]:
-
-
-df.shape
-
-
-# In[ ]:
-
+df.rename({'hhhdocc1' : 'primary_occu', 'hhhdocc2' : 'sec_occu'}, axis = 1,inplace=True)
 
 
 
