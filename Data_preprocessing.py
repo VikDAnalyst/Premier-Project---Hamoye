@@ -557,7 +557,309 @@ df.drop(df.columns[df.columns.str.contains('married')], axis = 1, inplace = True
 
 
 
-
-
 #rename primary occupation and secondary occupation
 df.rename({'hhhdocc1' : 'primary_occu', 'hhhdocc2' : 'sec_occu'}, axis = 1,inplace=True)
+
+
+#issue 4a resolved
+cols=df.columns[df.columns.str.startswith('s3')]
+df.drop(columns=cols, inplace=True)
+
+crop_type=df[['s1p1c1','s1p1c2','s1p1c3','s1p1c4','s1p1c5','s1p1c6',
+              's1p2c1','s1p2c2','s1p2c3','s1p2c4','s1p2c5','s1p2c6',
+             's1p3c1','s1p3c2','s1p3c3','s1p3c4','s1p3c5','s1p3c6']]
+df_crop=[]
+for a,b in crop_type.iterrows():
+    df_crop.append(b[b>=1].values)
+    
+result = [', '.join(map(str, row)) for row in df_crop]
+series=pd.Series(result)
+df['season1_crop_type']=series
+
+#drop the columns
+df.drop(columns=crop_type.columns, inplace=True)
+
+crop_type=df[['s2p1c1','s2p1c2','s2p1c3','s2p1c4','s2p1c5','s2p1c6',
+              's2p2c1','s2p2c2','s2p2c3','s2p2c4','s2p2c5','s2p2c6',]]
+
+df_crop=[]
+for a,b in crop_type.iterrows():
+    df_crop.append(b[b>=1].values)
+
+result = [', '.join(map(str, row)) for row in df_crop]
+series=pd.Series(result)
+df['season2_crop_type']=series
+
+#drop the columns
+df.drop(columns=crop_type.columns, inplace=True)
+
+
+#harvest and planting date not needed, so drop them
+cols_plant=df.columns[df.columns.str.contains('s1\w+plant')]
+cols_harvest=df.columns[df.columns.str.contains('s1\w{4}harv')]
+
+df.drop(columns=cols_plant,inplace=True)
+df.drop(columns=cols_harvest,inplace=True)
+
+#what is the mean proportion of area used for planting in season_1 and season_2
+cols=df.columns[df.columns.str.contains('s1\w+area')]
+df_season1_area=df[cols].mean(axis=1)
+df['season1_mean_area']=df_season1_area
+
+#drop the columns
+df.drop(columns=cols, inplace=True)
+
+#do same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+area')]
+df_season2_area=df[cols].mean(axis=1)
+df['season2_mean_area']=df_season2_area
+
+#drop the columns
+df.drop(columns=cols, inplace=True)
+
+#what is the mean quantity of harvest for season 1 and season 2
+cols=df.columns[df.columns.str.contains('s1\w+qharv')]
+df_season1_qharv=df[cols].mean(axis=1)
+df['season1_mean_qharv']=df_season1_qharv
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#do same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+qharv')]
+df_season2_qharv=df[cols].mean(axis=1)
+df['season2_mean_qharv']=df_season2_qharv
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#what is the mean amount consumed by household from season 1 and 2
+cols=df.columns[df.columns.str.contains('s1\w+cons')]
+df_season1_cons=df[cols].mean(axis=1)
+df['season1_mean_household_consumption']=df_season1_cons
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#do same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+cons')]
+df_season2_cons=df[cols].mean(axis=1)
+df['season2_mean_household_consumption']=df_season2_cons
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#what is the mean amount consumed by livestock from season 1 and 2
+cols=df.columns[df.columns.str.contains('s1\w+lives')]
+df_season1_lives=df[cols].mean(axis=1)
+df['season1_mean_livestock_consumption']=df_season1_lives
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#do same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+lives')]
+df_season2_lives=df[cols].mean(axis=1)
+df['season2_mean_livestock_consumption']=df_season2_lives
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#what is the mean amount lost due to livestock and pest in season 1 and 2?
+cols=df.columns[df.columns.str.contains('s1\w+lost')]
+df_season1_lost=df[cols].mean(axis=1)
+df['season1_mean_loss']=df_season1_lost
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#do same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+lost')]
+df_season2_lost=df[cols].mean(axis=1)
+df['season2_mean_loss']=df_season2_lost
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#what is the mean quantity sold in season 1 and 2
+cols=df.columns[df.columns.str.contains('s1\w+sold')]
+df_season1_sold=df[cols].mean(axis=1)
+df['season1_mean_sold']=df_season1_sold
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#do same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+sold')]
+df_season2_sold=df[cols].mean(axis=1)
+df['season2_mean_sold']=df_season2_sold
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#drop columns for mkt
+cols=df.columns[df.columns.str.contains('s1\w+mkt')]
+df.drop(columns=cols, inplace=True)
+
+#what is the average amount of seed used in season 1 and 2
+cols=df.columns[df.columns.str.contains('s1\w+seed')]
+df_season1_seed=df[cols].mean(axis=1)
+df['season1_mean_seed_used']=df_season1_seed
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#do same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+seed')]
+df_season2_seed=df[cols].mean(axis=1)
+df['season2_mean_seed_used']=df_season2_seed
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#what is the average cost per seed used
+cols=df.columns[df.columns.str.contains('s1\w+sval')]
+df_season1_sval=df[cols].mean(axis=1)
+df['season1_mean_seed_value']=df_season1_sval
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#do same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+sval')]
+df_season2_sval=df[cols].mean(axis=1)
+df['season2_mean_seed_value']=df_season2_sval
+
+#drop the cols
+df.drop(columns=cols, inplace=True)
+
+#create a columnn for the count of the crop type for each household per year, and another column for the 
+cols=df.columns[df.columns.str.startswith('pc')]
+crop_type=df[cols].count(axis=1)
+df['no_of_crop_types']=crop_type
+
+#drop the columns
+df.drop(columns=cols, inplace=True)
+
+#do the same for yield, but find the average
+cols=df.columns[df.columns.str.startswith('nyieldc')]
+avg_yield_per_crop=df[cols].mean(axis=1)
+df['avg_yield_per_crop_type']=avg_yield_per_crop
+
+#drop the columns
+df.drop(columns=cols, inplace=True)
+
+df['water_supply']= (df['s1p1wat1'].fillna(df['s1p1wat2']).
+                     fillna(df['s1p1wat3']).fillna(df['s1p1wat4']).
+                     fillna(df['s1p1wat5']))
+#drop the columns
+df.drop(columns=['s1p1wat1','s1p1wat2','s1p1wat3','s1p1wat4','s1p1wat5'],inplace=True)
+
+
+#find the means of water supply for season 1 for each household
+cols=df.columns[df.columns.str.contains('s1p\d+wat\d+')]
+#merge the columns into one
+
+df['season1_water_supply']=None
+for col in cols:
+    df['season1_water_supply'].fillna(df[col],inplace=True)
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+#do the same for season 2
+cols=df.columns[df.columns.str.contains('s2p\d+wat\d+')]
+#merge the columns into one
+
+df['season2_water_supply']=None
+for col in cols:
+    df['season2_water_supply'].fillna(df[col],inplace=True)
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+
+#find the irrigation system used by each household
+cols=df.columns[df.columns.str.contains('s1\w+irrig')]
+#merge the columns into one
+
+df['season1_irrigation_type']=None
+for col in cols:
+    df['season1_irrigation_type'].fillna(df[col],inplace=True)
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+cols=df.columns[df.columns.str.contains('s2\w+irrig')]
+#merge the columns into one
+
+df['season2_irrigation_type']=None
+for col in cols:
+    df['season2_irrigation_type'].fillna(df[col],inplace=True)
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+#find the average fertilizer use per household for season 1 and 2
+cols=df.columns[df.columns.str.contains('s1\w+fert')]
+season1_fert=df[cols].mean(axis=1)
+df['season1_avg_fertilizer']=season1_fert
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+#do the same for season2
+cols=df.columns[df.columns.str.contains('s2\w+fert')]
+season2_fert=df[cols].mean(axis=1)
+df['season2_avg_fertilizer']=season2_fert
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+#find the average pesticide use per family for season 1 and 2
+cols=df.columns[df.columns.str.contains('s1\w+pest')]
+season1_pest=df[cols].mean(axis=1)
+df['season1_avg_pesticide']=season1_pest
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+#do the same for season 2
+cols=df.columns[df.columns.str.contains('s2\w+pest')]
+season2_pest=df[cols].mean(axis=1)
+df['season2_avg_pesticide']=season2_pest
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+#we don't need the column for the owner of the machinery, so drop it
+cols=df.columns[df.columns.str.contains('owner')]
+df.drop(columns=cols,inplace=True)
+
+#calculate the average price per machinery for each household
+cols=df.columns[df.columns.str.contains('\w{2}\d+price')]
+avg_price_equipment=df[cols].mean(axis=1)
+df['avg_price_equip']=avg_price_equipment
+
+#drop the columns
+df.drop(columns=cols, inplace=True)
+
+#calculate the average lifespan of each equipment for each household
+cols=df.columns[df.columns.str.contains('\w{2}\d+life')]
+avg_lifespan=df[cols].mean(axis=1)
+df['avg_lifespan_equip']=avg_lifespan
+
+#drop the columns
+df.drop(columns=cols,inplace=True)
+
+#calculate the average number of equipment used/owned by each family
+cols=df.columns[df.columns.str.contains('[lha]m\d+')]
+avg_no_equip=df[cols].mean(axis=1)
+df['avg_no_equipment']=avg_no_equip
+
+#drop the columns
+df.drop(columns=cols, inplace=True)
+
+#drop the columns for builduse
+cols=df.columns[df.columns.str.contains('build\w+')]
+df.drop(columns=cols,inplace=True)
