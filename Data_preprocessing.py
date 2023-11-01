@@ -9,7 +9,6 @@ df=pd.read_csv('data.csv')
 #dropping the unnamed column
 df.drop('Unnamed: 0',axis=1,inplace=True)
 
-
 #issues to resolve (Issue 3)
 
 #sum up all the plotareas for each household
@@ -27,7 +26,6 @@ df['frequent_fsystem']=fsystem_mode
 
 #drop cols with fsystem
 df.drop(columns=cols_fsystem,inplace=True)
-
 
 #reduce the tenure to one column which returns the most common tenure system used by each household, 
 #for those with more than one common tenure system, return the values that are common
@@ -239,7 +237,7 @@ df['total_hired_kind_payment']=df[['inkindhrm','inkindhrf','inkindhrc']].sum(axi
 #drop the columns
 df.drop(columns=['inkindhrm','inkindhrf','inkindhrc'],inplace=True)
 
-# Section 4b resolved by Victor Ademola 
+# Section 4b resolved by Victor
 # Create column for total number of livestocks owned
 df["total_livestocks_owned"]=df[["lvs1num","lvs2num","lvs3num","lvs4num","lvs5num","lvs6num",
     "lvs7num","lvs8num","lvs9num","lvs10num","lvs11num","lvs12num"]].sum(axis=1)
@@ -457,7 +455,6 @@ df['adaptation_temperature_change']=(df['adaptation_temperature_change'].
 df.drop(columns=['adjtempshifts1','adjtempshifts2','adjtempshifts3',
                 'adjtempshifts1_1','adjtempshifts2_1','adjtempshifts3_1'],inplace=True)
 
-
 #do the same for adjrainfallshifts1-3
 df['adaptation_precipitation_change']=(df['adaptation_precipitation_change'].
                              fillna(df['adjrainfallshifts1']).
@@ -470,23 +467,17 @@ df['adaptation_precipitation_change']=(df['adaptation_precipitation_change'].
 #drop the columns
 df.drop(columns=['adjrainfallshifts1','adjrainfallshifts2',
                  'adjrainfallshifts3','adjrainfallshifts1_1','adjrainfallshifts2_1',
-                'adjrainfallshifts3_1'],inplace=True)
-                                       
+                'adjrainfallshifts3_1'],inplace=True)                            
 
 #Issue 1 Resolved
 
 #Find the mean eduation level of the members of each household to determine the level education in each.
 df['edu_level'] = df[df.columns[df.columns.str.contains('educ')]].mean(axis = 1)
 
-
 df['edu_level'].head(5)
-
-
 
 #drop educ1 - educ38
 df.drop(df.columns[df.columns.str.contains('educ')], axis = 1, inplace = True)
-
-
 
 #aggregate the ages of each household to determine the strength and level of experience
 
@@ -503,39 +494,25 @@ df.drop(['age1','age2', 'age3', 'age4', 'age5', 'age6', 'age7', 'age8', 'age9', 
                    'age16', 'age17', 'age18', 'age19', 'age20', 'age21', 'age22', 'age23', 'age24', 'age25', 'age26', 'age27', 'age28',
                    'age29', 'age30', 'age31', 'age32', 'age33', 'age34', 'age35', 'age36', 'age37', 'age38'], axis = 1, inplace = True)
 
-
-
-
-
 #to determine the number of female and male in each household
 df['nmale'] = df[df.columns[df.columns.str.contains('gender')]].apply(lambda x: (x == 1).sum(), axis = 1)
 
-
-
 df['nfemale'] = df[df.columns[df.columns.str.contains('gender')]].apply(lambda x: (x == 2).sum(), axis = 1)
-
 
 #drop gender1 - gender38
 df.drop(df.columns[df.columns.str.contains('gender')], axis = 1, inplace = True)
 
-
-
 #frequency of members involve in non farmwork
 df['mem_nfarmwrk'] = df[df.columns[df.columns.str.contains('nfarmwork')]].apply(lambda x : (x == 1).sum(), axis = 1)
 
-
 #drop nfarmwork1 - 38
 df.drop(df.columns[df.columns.str.contains('nfarmwork')], axis = 1, inplace = True)
-
-
 
 #frequency of member involve in farmwork
 df['mem_farmwrk'] = df[df.columns[df.columns.str.contains('farmwork')]].apply(lambda x : (x == 1).sum(), axis = 1)
 
 #drop farmwork1 - 38
 df.drop(df.columns[df.columns.str.contains('farmwork')], axis = 1, inplace = True)
-
-
 
 #married
 
@@ -551,10 +528,8 @@ df['n_divorced'] = df[df.columns[df.columns.str.contains('married')]].apply(lamb
 #number of teengers
 df['n_teengers'] = df[df.columns[df.columns.str.contains('married')]].apply(lambda x : (x== 4).sum(), axis =1)
 
-
 #drop married1 - 38
 df.drop(df.columns[df.columns.str.contains('married')], axis = 1, inplace = True)
-
 
 
 #rename primary occupation and secondary occupation
