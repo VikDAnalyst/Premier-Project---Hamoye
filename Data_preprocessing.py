@@ -844,3 +844,5 @@ df.drop(columns=cols,inplace=True)
 
 # Drop the whole section 5 columns 
 df.drop(columns=df.columns[df.columns.str.startswith('ext')], inplace=True)
+
+# Section 6 Resolved
