@@ -838,3 +838,9 @@ df.drop(columns=cols, inplace=True)
 #drop the columns for builduse
 cols=df.columns[df.columns.str.contains('build\w+')]
 df.drop(columns=cols,inplace=True)
+
+# Section 5 Issue resolved 
+
+# Drop the whole section 5 columns 
+df.drop(columns=["extc","extcvisit","extcpay","extccost","extctype","extl","extlvisit","extlpay",
+                "extlcost","extltype","extclim","extother","extctype_def","extltype_def"], inplace=True)
