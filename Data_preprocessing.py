@@ -846,5 +846,53 @@ def preprocessing():
 
     # Drop the whole section 5 columns 
     df.drop(columns=df.columns[df.columns.str.startswith('ext')], inplace=True)
+    #section 6
+    #sum of all taxes to be paid
+    total_tax_paid= df[df.columns[df.columns.str.contains('tax')]].sum(axis=1)
+    #equivalent columns for total tax
+    total_tax_paid
+    #drop irrelevant columns of tax
+    df.drop(['taxincome', 'taxprop','taxsales','taxother'], axis= 1, inplace= True)
+    #include the equivalent tax column to the dataframe
+    df['total_tax_paid']= total_tax_paid
+    df['total_tax_paid']
+    #For the income section
+    #Total income from farm activities per household will be the average of the average income yearly and the income for the last     12 monts
+    inc_farm= df[['incfarm', 'incfarm_n']].mean(axis=1)
+    #Drop the irrelevant columns
+    df.drop(['incfarm', 'incfarm'], axis=1, inplace= True)
+    #include the relevant column
+    df['inc_farm']= inc_farm
+    df['inc_farm']
+    #Do the same for income from non farm activities
+    inc_nfarm= df[['incnfarm', 'incnfarm_n']].mean(axis=1)
+    df.drop(['incnfarm', 'incnfarm_n'], axis=1, inplace= True)
+    df['inc_nfarm']= inc_nfarm
+    df['inc_nfarm']
+    #The subsidy section
+    df[df.columns[df.columns.str.contains('subs')]]
+    df.drop(['subs1from', 'subs1get', 'subs1tot', 
+             'subs2from','subs2get', 'subs2tot', 'subs3from', 
+             'subs3get', 'subs3tot','subs4from', 'subs4get', 
+             'subs4tot'], axis=1, inplace= True)
+    #The borrowed money section
+   
+    #since there are very few numbers that borrowed from relatives
+    #we drop the column
+    df.drop(['inc1', 'inc1tot', 'inc1r', 'inc1years'], axis= 1, inplace= True)
     
+    #Do same for inc2
+    df.drop(['inc2', 'inc2r', 'inc2tot', 'inc2years'], axis= 1, inplace= True)
+    
+    #Do same for inc3
+    df.drop(['inc3', 'inc3r', 'inc3tot', 'inc3years'], axis= 1, inplace= True)
+    
+    #Do same for inc4
+    df.drop(['inc4', 'inc4r', 'inc4tot', 'inc4years'], axis= 1, inplace= True)
+    
+    #Do same for inc5
+    df.drop(['inc5', 'inc5r', 'inc5tot', 'inc5years'], axis= 1, inplace= True)
+
     return df
+
+    # Section 6 Resolved
