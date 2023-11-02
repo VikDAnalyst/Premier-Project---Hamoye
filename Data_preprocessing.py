@@ -848,5 +848,3 @@ def preprocessing():
     df.drop(columns=df.columns[df.columns.str.startswith('ext')], inplace=True)
     
     return df
-
-    # Section 6 Resolved
