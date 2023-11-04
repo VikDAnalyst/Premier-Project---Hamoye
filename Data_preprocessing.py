@@ -679,6 +679,22 @@ def preprocessing():
     df.drop(columns=cols, inplace=True)
 
     #what is the average amount of seed used in season 1 and 2
+    df['s1p1c1seed'] =  df['s1p1c1seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c2seed'] =  df['s1p1c2seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c3seed'] =  df['s1p1c3seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c4seed'] =  df['s1p1c4seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c5seed'] =  df['s1p1c5seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c6seed'] =  df['s1p1c6seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p2c1seed'] =  df['s1p2c1seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p2c2seed'] =  df['s1p2c2seed'].str.extract("(\d+\.?\d+)").astype(float)
+
     cols=df.columns[df.columns.str.contains('s1\w+seed')]
     df_season1_seed=df[cols].mean(axis=1)
     df['season1_mean_seed_used']=df_season1_seed
@@ -687,6 +703,18 @@ def preprocessing():
     df.drop(columns=cols, inplace=True)
 
     #do same for season 2
+    df['s2p1c1seed'] =  df['s2p1c1seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p1c2seed'] =  df['s2p1c2seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p1c3seed'] =  df['s2p1c3seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p1c4seed'] =  df['s2p1c4seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p2c1seed'] =  df['s2p2c1seed'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p2c2seed'] =  df['s2p2c2seed'].str.extract("(\d+\.?\d+)").astype(float)
+
     cols=df.columns[df.columns.str.contains('s2\w+seed')]
     df_season2_seed=df[cols].mean(axis=1)
     df['season2_mean_seed_used']=df_season2_seed
@@ -695,6 +723,22 @@ def preprocessing():
     df.drop(columns=cols, inplace=True)
 
     #what is the average cost per seed used
+    df['s1p1c1sval'] =  df['s1p1c1sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c2sval'] =  df['s1p1c2sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c3sval'] =  df['s1p1c3sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c4sval'] =  df['s1p1c4sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c5sval'] =  df['s1p1c5sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p1c6sval'] =  df['s1p1c6sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p2c1sval'] =  df['s1p2c1sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s1p2c2sval'] =  df['s1p2c2sval'].str.extract("(\d+\.?\d+)").astype(float)
+
     cols=df.columns[df.columns.str.contains('s1\w+sval')]
     df_season1_sval=df[cols].mean(axis=1)
     df['season1_mean_seed_value']=df_season1_sval
@@ -703,6 +747,17 @@ def preprocessing():
     df.drop(columns=cols, inplace=True)
 
     #do same for season 2
+    df['s2p1c1sval'] =  df['s2p1c1sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p1c2sval'] =  df['s2p1c2sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p1c3sval'] =  df['s2p1c3sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p1c4sval'] =  df['s2p1c4sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p2c1sval'] =  df['s2p2c1sval'].str.extract("(\d+\.?\d+)").astype(float)
+
+    df['s2p2c2sval'] =  df['s2p2c2sval'].str.extract("(\d+\.?\d+)").astype(float)
     cols=df.columns[df.columns.str.contains('s2\w+sval')]
     df_season2_sval=df[cols].mean(axis=1)
     df['season2_mean_seed_value']=df_season2_sval
