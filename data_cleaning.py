@@ -4,7 +4,7 @@ df=preprocessing()
 # percentage of null values in all columns
 
 # List of columns having more than 50% null values
-col_to_drop=df.isna().mean().sort_values(ascending=False)[df.isna().mean()>=.20].index
+col_to_drop=df.isna().mean().sort_values(ascending=False)[df.isna().mean()>=.50].index
 
 # drop the selected columns
 df = df.drop(col_to_drop, axis = 1)
