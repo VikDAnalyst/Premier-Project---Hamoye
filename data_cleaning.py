@@ -18,3 +18,5 @@ cols_to_object=['hhcode','cadm0','cadm1','cadm2','code','farmtype','fplots','hhe
                 'sec_occu','hhrelig','lvsown','relhead']
 
 df[cols_to_object]=df[cols_to_object].astype('object')
+
+#trying for Seyi
