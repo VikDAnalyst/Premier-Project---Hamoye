@@ -15,6 +15,6 @@ df = df.drop(columns=col_to_drop)
 # change incorrect datatype from float to object
 
 cols_to_object=['hhcode','cadm0','cadm1','cadm2','code','farmtype','fplots','hhelectric','primary_occu',
-                'sec_occu','hhrelig','lvsown','relhead']
+                'sec_occu','hhrelig','lvsown','relhead', 'water_supply', 'season2_water_supply']
 
 df[cols_to_object]=df[cols_to_object].astype('object')
