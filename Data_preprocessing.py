@@ -492,9 +492,11 @@ def preprocessing():
     #drop age1 - age38
     #df.drop(df.columns[df.columns.str.contains('age')], axis = 1, inplace = True)
 
-    df.drop(['age1','age2', 'age3', 'age4', 'age5', 'age6', 'age7', 'age8', 'age9', 'age10','age11', 'age12', 'age13', 'age14', 'age15',
-                       'age16', 'age17', 'age18', 'age19', 'age20', 'age21', 'age22', 'age23', 'age24', 'age25', 'age26', 'age27', 'age28',
-                       'age29', 'age30', 'age31', 'age32', 'age33', 'age34', 'age35', 'age36', 'age37', 'age38'], axis = 1, inplace = True)
+    df.drop(['age1','age2', 'age3', 'age4', 'age5', 'age6', 'age7', 'age8', 'age9', 
+             'age10','age11', 'age12', 'age13', 'age14', 'age15','age16', 'age17', 
+             'age18', 'age19', 'age20', 'age21', 'age22', 'age23', 'age24', 'age25', 
+             'age26', 'age27', 'age28','age29', 'age30', 'age31', 'age32', 'age33', 
+             'age34', 'age35', 'age36', 'age37', 'age38'], axis = 1, inplace = True)
 
     #to determine the number of female and male in each household
     df['nmale'] = df[df.columns[df.columns.str.contains('gender')]].apply(lambda x: (x == 1).sum(), axis = 1)
