@@ -160,4 +160,3 @@ lower_quantile = df[numeric_cols].quantile(0.01)
 # Loop through the numeric columns and drop the values outside the 1st to 99th percentile range
 for col in numeric_cols:
     df.drop(df[(df[col] > upper_quantile[col]) | (df[col] < lower_quantile[col])].index, inplace=True)
-    df.reset_index(drop=True, inplace=True)
