@@ -15,8 +15,14 @@ df = df.drop(columns=col_to_drop)
 # change incorrect datatype from float to object
 
 cols_to_object=['hhcode','cadm0','cadm1','cadm2','code','farmtype','fplots','hhelectric','primary_occu',
-                'sec_occu','hhrelig','lvsown','relhead']
+                'sec_occu','hhrelig','lvsown','relhead', 'water_supply', 'season2_water_supply']
 
+<<<<<<< HEAD
 df[cols_to_object]=df[cols_to_object].astype('object')
 
 #trying for Seyi
+||||||| 7990993
+df[cols_to_object]=df[cols_to_object].astype('object')
+=======
+df[cols_to_object]=df[cols_to_object].astype('object')
+>>>>>>> b1f422a228a0994f30cdb24ccda10c7a08685f20
