@@ -576,9 +576,13 @@ def preprocessing():
     #harvest and planting date not needed, so drop them
     cols_plant=df.columns[df.columns.str.contains('s1\w+plant')]
     cols_harvest=df.columns[df.columns.str.contains('s1\w{4}harv')]
+    cols_2plant=df.columns[df.columns.str.contains('s2\w+plant')]
+    cols_2harv=df.columns[df.columns.str.contains('s2\w{4}harv')]
 
     df.drop(columns=cols_plant,inplace=True)
     df.drop(columns=cols_harvest,inplace=True)
+    df.drop(columns=cols_2plant,inplace=True)
+    df.drop(columns=cols_2harv,inplace=True)
 
     #what is the mean proportion of area used for planting in season_1 and season_2
     cols=df.columns[df.columns.str.contains('s1\w+area')]
