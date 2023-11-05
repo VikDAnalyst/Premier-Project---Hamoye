@@ -145,3 +145,18 @@ df.drop(columns=['total_household_kind_payment','total_hired_kind_payment'],inpl
 df['water_supply'].replace(0, np.nan,inplace=True)
 df['water_supply']=df['water_supply'].astype('object')
 
+#drop rows with household size greater than 39 (since maximum household according to the survey is 39)
+
+df.drop(df[df['hhsize']>39].index, inplace=True)
+
+#get the numeric data type to check for outliers
+numeric_cols=df.select_dtypes('number').columns
+
+#loop through the numeric columns and drop the values above or greater than the 99% quantile in place
+# Define the threshold quantiles
+upper_quantile = df[numeric_cols].quantile(0.99)
+lower_quantile = df[numeric_cols].quantile(0.01)
+
+# Loop through the numeric columns and drop the values outside the 1st to 99th percentile range
+for col in numeric_cols:
+    df.drop(df[(df[col] > upper_quantile[col]) | (df[col] < lower_quantile[col])].index, inplace=True)
