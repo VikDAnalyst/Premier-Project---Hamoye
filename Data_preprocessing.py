@@ -892,8 +892,8 @@ def preprocessing():
 
     #calculate the average number of equipment used/owned by each family
     cols=df.columns[df.columns.str.contains('[lha]m\d+')]
-    avg_no_equip=df[cols].mean(axis=1)
-    df['avg_no_equipment']=avg_no_equip
+    avg_no_equip=df[cols].count(axis=1)
+    df['no_equipment']=avg_no_equip
 
     #drop the columns
     df.drop(columns=cols, inplace=True)
@@ -916,20 +916,19 @@ def preprocessing():
     df.drop(['taxincome', 'taxprop','taxsales','taxother'], axis= 1, inplace= True)
     #include the equivalent tax column to the dataframe
     df['total_tax_paid']= total_tax_paid
-    df['total_tax_paid']
+ 
     #For the income section
     #Total income from farm activities per household will be the average of the average income yearly and the income for the last     12 monts
-    inc_farm= df[['incfarm', 'incfarm_n']].mean(axis=1)
+    
     #Drop the irrelevant columns
-    df.drop(['incfarm', 'incfarm'], axis=1, inplace= True)
+    df.drop(['incfarm_n'], axis=1, inplace= True)
     #include the relevant column
-    df['inc_farm']= inc_farm
-    df['inc_farm']
+    
     #Do the same for income from non farm activities
     inc_nfarm= df[['incnfarm', 'incnfarm_n']].mean(axis=1)
     df.drop(['incnfarm', 'incnfarm_n'], axis=1, inplace= True)
     df['inc_nfarm']= inc_nfarm
-    df['inc_nfarm']
+
     #The subsidy section
     df[df.columns[df.columns.str.contains('subs')]]
     df.drop(['subs1from', 'subs1get', 'subs1tot', 
