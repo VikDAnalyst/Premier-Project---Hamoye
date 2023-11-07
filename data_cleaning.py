@@ -150,12 +150,7 @@ def cleaning (df=preprocessing()):
 
     df.drop(df[df['hhsize']>39].index, inplace=True)
     
-    numeric_cols=df.select_dtypes('number').columns
-
-    # Define the threshold quantiles
-    upper_quantile = df[numeric_cols].quantile(0.99)
-    lower_quantile = df[numeric_cols].quantile(0.01)
-    
+   
     #It appears the income was collected in local currency, convert to usd, 
     
     # Create a dictionary with conversion factors
@@ -177,13 +172,19 @@ def cleaning (df=preprocessing()):
     def convert_income(row):
         country = row['adm0'].lower()  # Convert the country name to lowercase
         if country in conversion_factors:
-            return row['inc_farm'] / conversion_factors[country]
+            return row['incfarm'] / conversion_factors[country]
         else:
             return np.nan
 
     # Apply the conversion function to the DataFrame
-    df['inc_farm'] = df.apply(convert_income, axis=1)
+    df['incfarm'] = df.apply(convert_income, axis=1)
 
+    numeric_cols=df.select_dtypes('number').columns
+
+    # Define the threshold quantiles
+    upper_quantile = df[numeric_cols].quantile(0.99)
+    lower_quantile = df[numeric_cols].quantile(0.01)
+    
         # Loop through the numeric columns and drop the values outside the 1st to 99th percentile range
     for col in numeric_cols:
         df.drop(df[(df[col] > upper_quantile[col]) | (df[col] < lower_quantile[col])].index, inplace=True)
