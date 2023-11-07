@@ -155,8 +155,36 @@ def cleaning (df=preprocessing()):
     # Define the threshold quantiles
     upper_quantile = df[numeric_cols].quantile(0.99)
     lower_quantile = df[numeric_cols].quantile(0.01)
+    
+    #It appears the income was collected in local currency, convert to usd, 
+    
+    # Create a dictionary with conversion factors
+    conversion_factors = {
+        'niger': 614.05,
+        'ethiopia': 55.86,
+        'zambia': 22.46,
+        'senegal': 614.05,
+        'burkinafaso': 614.05,
+        'egypt': 30.90,
+        'cameroon': 614.05,
+        'ghana': 11.92,
+        'kenya': 151.4,
+        'zimbabwe': 322,
+        'south africa': 18.42
+    }
 
-    # Loop through the numeric columns and drop the values outside the 1st to 99th percentile range
+    # Function to perform the conversion based on country
+    def convert_income(row):
+        country = row['adm0'].lower()  # Convert the country name to lowercase
+        if country in conversion_factors:
+            return row['inc_farm'] / conversion_factors[country]
+        else:
+            return np.nan
+
+    # Apply the conversion function to the DataFrame
+    df['inc_farm'] = df.apply(convert_income, axis=1)
+
+        # Loop through the numeric columns and drop the values outside the 1st to 99th percentile range
     for col in numeric_cols:
         df.drop(df[(df[col] > upper_quantile[col]) | (df[col] < lower_quantile[col])].index, inplace=True)
 
