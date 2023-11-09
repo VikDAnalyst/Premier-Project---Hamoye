@@ -153,8 +153,6 @@ def cleaning (df=preprocessing()):
     numeric_cols=df.select_dtypes('number').columns
 
     # Define the threshold quantiles
-    upper_quantile = df[numeric_cols].quantile(0.99)
-    lower_quantile = df[numeric_cols].quantile(0.01)
     
     #It appears the income was collected in local currency, convert to usd, 
     
@@ -177,16 +175,51 @@ def cleaning (df=preprocessing()):
     def convert_income(row):
         country = row['adm0'].lower()  # Convert the country name to lowercase
         if country in conversion_factors:
-            return row['inc_farm'] / conversion_factors[country]
+            return row['incfarm'] / conversion_factors[country]
         else:
-            return np.nan
+            return np.nan 
 
     # Apply the conversion function to the DataFrame
-    df['inc_farm'] = df.apply(convert_income, axis=1)
-
-        # Loop through the numeric columns and drop the values outside the 1st to 99th percentile range
+    df['incfarm'] = df.apply(convert_income, axis=1)
+    
+    
+    up=df.quantile(.75)
+    down=df.quantile(.25)
+    #handling outliers (replacing upper 75% with mean, and lower 25% with mean
+    numeric_cols=['costkgfert','farmbuyv', 'farmsalev',
+       'incfarm','occ1wks',
+       'sickdays', 'total_plotarea', 'avg_use_of_plot_in_years',
+       'total_livestocks_owned', 'total_livestocks_born',
+       'total_livestocks_lost', 'total_livestocks_purchased',
+       'livestocks_avg_purchase_price', 'months_grazed_communal',
+       'months_grazed_own', 'month_grazed_openland', 'total_livestocks_sold',
+       'livestocks_avg_sales_price', 'avg_livestocks_product_used',
+       'avg_livestocks_product_sold', 'avg_product_price',
+       'transport_cropcost', 'pm_cropcost', 'storage_cropcost',
+       'postharvest_croploss', 'other_cropcost', 'transport_lvscost',
+       'pm_lvscost', 'storage_lvscost', 'postharvest_lvsloss', 'other_lvscost',
+       'edu_level', 'ave_age', 'nmale', 'nfemale', 'mem_nfarmwrk',
+       'mem_farmwrk',
+       'season1_mean_area', 'season1_mean_qharv', 'season2_mean_qharv',
+       'season1_mean_household_consumption',
+       'season2_mean_household_consumption',
+       'season1_mean_livestock_consumption', 'season1_mean_loss',
+       'season2_mean_loss', 'season1_mean_sold', 'season2_mean_sold',
+       'season1_mean_seed_used', 'season1_mean_seed_value',
+       'season2_mean_seed_value', 'no_of_crop_types',
+       'avg_yield_per_crop_type', 'season1_avg_fertilizer',
+       'season2_avg_fertilizer', 'season1_avg_pesticide', 'avg_price_equip',
+       'avg_lifespan_equip', 'avg_no_equipment', 'total_tax_paid',
+       'number_of_laborers', 'days_spent_by_laborers',
+       'livestock_number_of_laborers', 'days_spent_by_livestock_laborers',
+       'labor_wage_payment', 'kind_payment']
+    
     for col in numeric_cols:
-        df.drop(df[(df[col] > upper_quantile[col]) | (df[col] < lower_quantile[col])].index, inplace=True)
+        # Calculate the mean of the column
+        col_mean = df[col].mean()
+
+        # Replace values outside the range with the mean
+        df[col] = df[col].apply(lambda val: col_mean if (val > up[col]) or (val < down[col]) else val)
 
     #cleaning season1s
     df['season1s']=df['season1s'].str.extract('([a-zA-Z]{2,11})')
